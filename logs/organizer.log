@@ -69,3 +69,23 @@ AttributeError: 'EmailProcessor' object has no attribute 'process_all_mail'
 2025-05-31 14:37:54,342 - __main__ - INFO - Starting email processing
 2025-05-31 14:37:55,860 - src.email_processor - INFO - Processed 0 emails
 2025-05-31 14:37:55,860 - __main__ - INFO - Successfully processed 0 emails
+2025-05-31 17:08:53,856 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 17:08:54,349 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 17:08:55,717 - __main__ - INFO - Starting email processing
+2025-05-31 17:09:30,520 - src.email_processor - INFO - Processed 3 emails
+2025-05-31 17:09:30,522 - __main__ - INFO - Successfully processed 3 emails
+2025-05-31 17:11:00,682 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 17:11:00,685 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 17:11:02,046 - __main__ - INFO - Starting email processing
+2025-05-31 17:11:03,718 - src.email_processor - INFO - Processed 0 emails
+2025-05-31 17:11:03,718 - __main__ - INFO - Successfully processed 0 emails
+2025-05-31 17:50:41,817 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 17:50:41,819 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 17:50:43,199 - __main__ - INFO - Starting email processing
+2025-05-31 17:50:46,708 - src.email_processor - INFO - Processed 1 emails
+2025-05-31 17:50:46,709 - __main__ - INFO - Successfully processed 1 emails
+2025-05-31 17:51:55,084 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 17:51:55,086 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 17:51:56,403 - __main__ - INFO - Starting email processing
+2025-05-31 17:52:00,584 - src.email_processor - INFO - Processed 1 emails
+2025-05-31 17:52:00,585 - __main__ - INFO - Successfully processed 1 emails
