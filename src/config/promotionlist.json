@@ -1,0 +1,12 @@
+{
+    "domains": [
+        "promo.com",
+        "offers.example.com",
+        "zomato.com",
+        "youtube.com"
+    ],
+    "emails": [
+        "newsletter@shopping.site",
+        "deals@store.com"
+    ]
+}

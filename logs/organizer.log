@@ -1,0 +1,71 @@
+2025-05-17 14:02:55,966 - __main__ - INFO - Starting Gmail Organizer
+2025-05-17 14:02:55,968 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-17 14:02:55,970 - __main__ - INFO - Starting email processing
+2025-05-17 14:02:56,819 - src.email_processor - INFO - No messages found in inbox
+2025-05-17 14:02:56,819 - __main__ - INFO - Successfully processed 0 emails
+2025-05-25 18:39:04,126 - __main__ - INFO - Starting Gmail Organizer
+2025-05-25 18:39:04,511 - __main__ - ERROR - Unexpected error: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})
+Traceback (most recent call last):
+  File "/Users/aayush/Task 1/Mail-Classifior/src/main.py", line 23, in main
+    creds = authenticate_gmail()
+  File "/Users/aayush/Task 1/Mail-Classifior/src/auth.py", line 27, in authenticate_gmail
+    creds.refresh(Request())
+  File "/Users/aayush/Task 1/Mail-Classifior/venv/lib/python3.8/site-packages/google/oauth2/credentials.py", line 409, in refresh
+    ) = reauth.refresh_grant(
+  File "/Users/aayush/Task 1/Mail-Classifior/venv/lib/python3.8/site-packages/google/oauth2/reauth.py", line 366, in refresh_grant
+    _client._handle_error_response(response_data, retryable_error)
+  File "/Users/aayush/Task 1/Mail-Classifior/venv/lib/python3.8/site-packages/google/oauth2/_client.py", line 69, in _handle_error_response
+    raise exceptions.RefreshError(
+google.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})
+2025-05-25 18:39:54,701 - __main__ - INFO - Starting Gmail Organizer
+2025-05-25 18:40:42,136 - google_auth_oauthlib.flow - INFO - "GET /?state=TizIiyvcBTucunTiByl5ZROckdB7bI&code=4/0AUJR-x4GEpEYVO4K9_no04yzbkM3rDxVSoqZTxdgsV_QtC5_QSTkDyXBsQJE1zUR9XQfUw&scope=https://www.googleapis.com/auth/gmail.readonly%20https://www.googleapis.com/auth/gmail.modify HTTP/1.1" 200 65
+2025-05-25 18:40:42,532 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-25 18:40:42,536 - __main__ - INFO - Starting email processing
+2025-05-25 18:40:45,025 - src.email_processor - INFO - Processed email from Google <no-reply@accounts.google.com> with label google.com
+2025-05-25 18:40:45,025 - __main__ - INFO - Successfully processed 1 emails
+2025-05-31 14:02:14,738 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:02:15,277 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:02:16,485 - src.email_processor - INFO - Created label: Blocked
+2025-05-31 14:02:17,576 - src.email_processor - INFO - Created label: Promotion
+2025-05-31 14:02:17,576 - __main__ - INFO - Starting email processing
+2025-05-31 14:02:19,251 - src.email_processor - INFO - Processed 0 emails
+2025-05-31 14:02:19,252 - __main__ - INFO - Successfully processed 0 emails
+2025-05-31 14:03:21,336 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:03:21,338 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:03:22,445 - __main__ - INFO - Starting email processing
+2025-05-31 14:03:23,924 - src.email_processor - INFO - Processed 0 emails
+2025-05-31 14:03:23,924 - __main__ - INFO - Successfully processed 0 emails
+2025-05-31 14:08:54,973 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:08:54,975 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:08:56,076 - __main__ - INFO - Starting email processing
+2025-05-31 14:08:58,130 - src.email_processor - INFO - Created label: Auto/From_2301aayush
+2025-05-31 14:08:59,950 - src.email_processor - INFO - Processed 1 emails
+2025-05-31 14:08:59,951 - __main__ - INFO - Successfully processed 1 emails
+2025-05-31 14:14:29,064 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:14:29,066 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:14:30,150 - __main__ - INFO - Starting email processing
+2025-05-31 14:14:30,150 - __main__ - ERROR - Unexpected error: 'EmailProcessor' object has no attribute 'process_emails'
+Traceback (most recent call last):
+  File "/Users/aayush/Task 1/Mail-Classifior/src/main.py", line 31, in main
+    processed = processor.process_emails()
+AttributeError: 'EmailProcessor' object has no attribute 'process_emails'
+2025-05-31 14:34:08,671 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:34:08,673 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:34:09,813 - __main__ - INFO - Starting email processing
+2025-05-31 14:34:09,813 - __main__ - ERROR - Unexpected error: 'EmailProcessor' object has no attribute 'process_all_mail'
+Traceback (most recent call last):
+  File "/Users/aayush/Task 1/Mail-Classifior/src/main.py", line 32, in main
+    processed = processor.process_all_mail()
+AttributeError: 'EmailProcessor' object has no attribute 'process_all_mail'
+2025-05-31 14:34:35,011 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:34:35,013 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:34:36,080 - __main__ - INFO - Starting email processing
+2025-05-31 14:35:07,545 - src.email_processor - INFO - Processed batch of 3 emails
+2025-05-31 14:35:19,153 - src.email_processor - INFO - Processed batch of 1 emails
+2025-05-31 14:35:19,153 - src.email_processor - INFO - Total processed: 4 emails
+2025-05-31 14:35:19,153 - __main__ - INFO - Successfully processed 4 emails
+2025-05-31 14:37:53,242 - __main__ - INFO - Starting Gmail Organizer
+2025-05-31 14:37:53,244 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-05-31 14:37:54,342 - __main__ - INFO - Starting email processing
+2025-05-31 14:37:55,860 - src.email_processor - INFO - Processed 0 emails
+2025-05-31 14:37:55,860 - __main__ - INFO - Successfully processed 0 emails
