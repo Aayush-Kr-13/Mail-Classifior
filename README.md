@@ -75,16 +75,13 @@ Follow these steps to set up and run the Gmail Organizer:
 
 Install the required Python packages using pip:
 
-    ```bash
     pip install -r requirements.txt
-    ```
+
 ## Command to Execute
 
 Use the following command to run the main script:
 
-    ```bash
     python -m src.main
-    ```
 
 # First-Time Setup
 
