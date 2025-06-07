@@ -22,33 +22,40 @@ def get_sender_domain(email_address: str) -> str:
         return email.split('@')[-1]
     return "unknown"
 
-def classify_email(sender: str) -> Optional[str]:
-    """
-    Classify email based on centralized EMAIL_CATEGORIES
-    Returns: None (keep in inbox) or label name
-    """
-    email = get_sender_email(sender)
-    domain = get_sender_domain(sender)
+def extract_meeting_links(body: str) -> Optional[str]:
+    """Extract meeting links from email body"""
+    patterns = EMAIL_CATEGORIES.get('meeting', {}).get('patterns', [])
+    combined_pattern = "|".join(f"({pattern})" for pattern in patterns)
+    
+    if re.search(combined_pattern, body):
+        return "Meeting"
+    return None
 
+def classify_email(sender: str, body: str) -> Optional[list[str]]:
+    """
+    Classify email based on EMAIL_CATEGORIES and body content.
+    Returns: list of label names (can be multiple), or None
+    """
+    labels = []
+    email = get_sender_email(sender)
+    domain = get_sender_domain(email)
     categories = EMAIL_CATEGORIES
 
-    # Check blocked list first
-    if (domain in categories["blocked"]["domains"] or 
-        email in categories["blocked"]["emails"]):
-        return "Blocked"
-    
-    # Check promotion list
-    if (domain in categories["promotion"]["domains"] or 
-        email in categories["promotion"]["emails"]):
-        return "Promotion"
-    
-    # Check user list
-    if (domain in categories["user"]["domains"] or 
-        email in categories["user"]["emails"]):
-        return f"From_{email.split('@')[0]}"
-    
-    # Not in any list - keep in inbox
-    return None
+    # Check blocked
+    if domain in categories["blocked"]["domains"] or email in categories["blocked"]["emails"]:
+        labels.append("Blocked")
+    # Check promotion
+    if domain in categories["promotion"]["domains"] or email in categories["promotion"]["emails"]:
+        labels.append("Promotion")
+    # Check user
+    if domain in categories["user"]["domains"] or email in categories["user"]["emails"]:
+        labels.append(f"From_{email.split('@')[0]}")
+    # Check meeting links in email body
+    meeting_label = extract_meeting_links(body)
+    if meeting_label:
+        labels.append(meeting_label)
+
+    return labels if labels else None
 
 def extract_email_body(payload: Dict[str, Any]) -> str:
     """Extract and decode email body text"""

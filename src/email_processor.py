@@ -1,6 +1,6 @@
 import os
 import logging
-from typing import Optional  # Add this import
+from typing import Optional
 from googleapiclient.discovery import build
 from src.utils.email_utils import (
     get_sender_email,
@@ -19,7 +19,7 @@ class EmailProcessor:
 
     def _ensure_system_labels_exist(self):
         """Create system labels if they don't exist"""
-        for label_name in ["Blocked", "Promotion"]:
+        for label_name in ["Blocked", "Promotion", "Meeting"]:
             self.create_label(label_name, is_system_label=True)
 
     def create_label(self, label_name: str, is_system_label: bool = False) -> Optional[str]:
@@ -55,18 +55,17 @@ class EmailProcessor:
     def process_emails(self) -> int:
         """Process emails from inbox and categorize them"""
         try:
-            # Retrieve messages
             results = self.service.users().messages().list(
                 userId='me',
                 labelIds=['INBOX'],
                 maxResults=MAX_RESULTS
             ).execute()
-            
+
             messages = results.get('messages', [])
             if not messages:
                 logger.info("No new messages in inbox")
                 return 0
-                
+
             processed = 0
             for msg in messages:
                 full_msg = self.service.users().messages().get(
@@ -74,39 +73,41 @@ class EmailProcessor:
                     id=msg['id'],
                     format='full'
                 ).execute()
-                
-                # Extract headers
+
                 headers = {h['name']: h['value'] for h in full_msg['payload']['headers']}
                 sender = headers.get('From', '')
-                
                 if not sender:
                     continue
-                
-                # Classify email
-                label_name = classify_email(sender)
-                
-                # Only process if classification exists
-                if label_name:
+
+                body = extract_email_body(full_msg['payload'])
+                label_names = classify_email(sender, body)
+
+                if not label_names:
+                    continue
+
+                label_ids = []
+                for name in label_names:
                     label_id = self.create_label(
-                        label_name,
-                        is_system_label=label_name in ["Blocked", "Promotion"]
+                        name,
+                        is_system_label=name in ["Blocked", "Promotion", "Meeting"]
                     )
-                    
                     if label_id:
-                        self.service.users().messages().modify(
-                            userId='me',
-                            id=msg['id'],
-                            body={
-                                'addLabelIds': [label_id],
-                                'removeLabelIds': ['INBOX']  # Move out of inbox
-                            }
-                        ).execute()
-                        processed += 1
-                        logger.debug(f"Labeled email from {sender} as {label_name}")
-            
+                        label_ids.append(label_id)
+
+                if label_ids:
+                    self.service.users().messages().modify(
+                        userId='me',
+                        id=msg['id'],
+                        body={
+                            'addLabelIds': label_ids
+                        }
+                    ).execute()
+                    logger.debug(f"Labeled email from {sender} as {label_names}")
+                    processed += 1
+
             logger.info(f"Processed {processed} emails")
             return processed
-            
+
         except Exception as e:
             logger.exception(f"Email processing failed: {e}")
             return 0

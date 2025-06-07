@@ -30,5 +30,12 @@
             "john.doe@example.com",
             "2301aayush@gmail.com"
         ]
+    },
+    "meeting": {
+        "patterns": [
+            "meet.google.com/[a-zA-Z0-9-]+",
+            "zoom.us/j/[0-9]+",
+            "teams.microsoft.com/l/meetup-join"
+        ]
     }
 }
