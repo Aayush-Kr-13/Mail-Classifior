@@ -2,6 +2,7 @@ import re
 import base64
 from typing import Dict, Any, Optional
 from src.config.settings import EMAIL_CATEGORIES
+from bs4 import BeautifulSoup
 
 def get_sender_email(sender_header: str) -> str:
     """Extract clean email address from From header"""
@@ -58,18 +59,38 @@ def classify_email(sender: str, body: str) -> Optional[list[str]]:
     return labels if labels else None
 
 def extract_email_body(payload: Dict[str, Any]) -> str:
-    """Extract and decode email body text"""
+    """Extract and decode email body text, prefer plain text, fallback to HTML (parsed)"""
+    
     def decode_body(data: str) -> str:
         return base64.urlsafe_b64decode(data).decode('utf-8', errors='ignore')
-    
-    # Handle multipart emails
+
+    def html_to_text(html: str) -> str:
+        """Convert HTML to plain text using BeautifulSoup"""
+        soup = BeautifulSoup(html, "html.parser")
+        return soup.get_text(separator=' ', strip=True)
+
+    text_body = None
+    html_body = None
+
     if 'parts' in payload:
         for part in payload['parts']:
-            if part['mimeType'] == 'text/plain':
-                return decode_body(part['body'].get('data', ''))
-    
-    # Handle simple emails
+            mime_type = part.get('mimeType', '')
+            data = part['body'].get('data', '')
+            
+            if mime_type == 'text/plain' and data:
+                text_body = decode_body(data)
+            elif mime_type == 'text/html' and data:
+                html_body = decode_body(data)
+
+        if text_body:
+            return text_body
+        elif html_body:
+            return html_to_text(html_body)
+        else:
+            return ""
+
     if 'body' in payload:
-        return decode_body(payload['body'].get('data', ''))
-    
+        data = payload['body'].get('data', '')
+        return decode_body(data)
+
     return ""

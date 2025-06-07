@@ -117,3 +117,13 @@ google.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or 
 2025-06-07 13:00:47,136 - __main__ - INFO - Starting email processing
 2025-06-07 13:00:50,844 - src.email_processor - INFO - Processed 1 emails
 2025-06-07 13:00:50,845 - __main__ - INFO - Successfully processed 1 emails
+2025-06-07 14:09:09,626 - __main__ - INFO - Starting Gmail Organizer
+2025-06-07 14:09:09,984 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-07 14:09:11,588 - __main__ - INFO - Starting email processing
+2025-06-07 14:09:15,482 - src.email_processor - INFO - Processed 1 emails
+2025-06-07 14:09:15,482 - __main__ - INFO - Successfully processed 1 emails
+2025-06-07 14:16:15,927 - __main__ - INFO - Starting Gmail Organizer
+2025-06-07 14:16:15,929 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-07 14:16:17,587 - __main__ - INFO - Starting email processing
+2025-06-07 14:16:23,564 - src.email_processor - INFO - Processed 2 emails
+2025-06-07 14:16:23,565 - __main__ - INFO - Successfully processed 2 emails
