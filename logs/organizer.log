@@ -89,3 +89,25 @@ AttributeError: 'EmailProcessor' object has no attribute 'process_all_mail'
 2025-05-31 17:51:56,403 - __main__ - INFO - Starting email processing
 2025-05-31 17:52:00,584 - src.email_processor - INFO - Processed 1 emails
 2025-05-31 17:52:00,585 - __main__ - INFO - Successfully processed 1 emails
+2025-06-07 12:25:24,097 - __main__ - INFO - Starting Gmail Organizer
+2025-06-07 12:25:24,431 - __main__ - ERROR - Unexpected error: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})
+Traceback (most recent call last):
+  File "/Users/aayush/Mail Classifier/Mail-Classifior/src/main.py", line 23, in main
+    creds = authenticate_gmail()
+            ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aayush/Mail Classifier/Mail-Classifior/src/auth.py", line 27, in authenticate_gmail
+    creds.refresh(Request())
+  File "/Users/aayush/.pyenv/versions/venv/lib/python3.12/site-packages/google/oauth2/credentials.py", line 409, in refresh
+    ) = reauth.refresh_grant(
+        ^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/aayush/.pyenv/versions/venv/lib/python3.12/site-packages/google/oauth2/reauth.py", line 366, in refresh_grant
+    _client._handle_error_response(response_data, retryable_error)
+  File "/Users/aayush/.pyenv/versions/venv/lib/python3.12/site-packages/google/oauth2/_client.py", line 69, in _handle_error_response
+    raise exceptions.RefreshError(
+google.auth.exceptions.RefreshError: ('invalid_grant: Token has been expired or revoked.', {'error': 'invalid_grant', 'error_description': 'Token has been expired or revoked.'})
+2025-06-07 12:26:04,176 - __main__ - INFO - Starting Gmail Organizer
+2025-06-07 12:26:13,108 - google_auth_oauthlib.flow - INFO - "GET /?state=hB4pVGuMh8lptRd949wuJvufWf8ByE&code=4/0AUJR-x5l4d5vWI7F9uIQWT-M4parJnKFD0An-QI4wK2aqe2A_0ZHcIdwQyCH6U5Bb6NaTQ&scope=https://www.googleapis.com/auth/gmail.readonly%20https://www.googleapis.com/auth/gmail.modify HTTP/1.1" 200 65
+2025-06-07 12:26:13,438 - googleapiclient.discovery_cache - INFO - file_cache is only supported with oauth2client<4.0.0
+2025-06-07 12:26:15,062 - __main__ - INFO - Starting email processing
+2025-06-07 12:26:18,864 - src.email_processor - INFO - Processed 1 emails
+2025-06-07 12:26:18,864 - __main__ - INFO - Successfully processed 1 emails

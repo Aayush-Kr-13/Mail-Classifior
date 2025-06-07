@@ -1,0 +1,34 @@
+{
+    "blocked": {
+        "domains": [
+            "spam.com",
+            "scam.net"
+        ],
+        "emails": [
+            "unwanted@sender.com",
+            "phishing@danger.org"
+        ]
+    },
+    "promotion": {
+        "domains": [
+            "amazon.com",
+            "youtube.com",
+            "zomato.com"
+        ],
+        "emails": [
+            "newsletter@store.com",
+            "deals@shopping.com"
+        ]
+    },
+    "user": {
+        "domains": [
+            "gmail.com",
+            "company.com"
+        ],
+        "emails": [
+            "important@client.com",
+            "john.doe@example.com",
+            "2301aayush@gmail.com"
+        ]
+    }
+}

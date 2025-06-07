@@ -1,7 +1,7 @@
 import re
 import base64
-from typing import Dict, Any, List, Optional  
-from src.config.settings import USER_LIST, BLOCKED_LIST, PROMOTION_LIST
+from typing import Dict, Any, Optional
+from src.config.settings import EMAIL_CATEGORIES
 
 def get_sender_email(sender_header: str) -> str:
     """Extract clean email address from From header"""
@@ -24,27 +24,28 @@ def get_sender_domain(email_address: str) -> str:
 
 def classify_email(sender: str) -> Optional[str]:
     """
-    Classify email based on lists
+    Classify email based on centralized EMAIL_CATEGORIES
     Returns: None (keep in inbox) or label name
     """
     email = get_sender_email(sender)
     domain = get_sender_domain(sender)
-    
+
+    categories = EMAIL_CATEGORIES
+
     # Check blocked list first
-    if (domain in BLOCKED_LIST["domains"] or 
-        email in BLOCKED_LIST["emails"]):
+    if (domain in categories["blocked"]["domains"] or 
+        email in categories["blocked"]["emails"]):
         return "Blocked"
     
     # Check promotion list
-    if (domain in PROMOTION_LIST["domains"] or 
-        email in PROMOTION_LIST["emails"]):
+    if (domain in categories["promotion"]["domains"] or 
+        email in categories["promotion"]["emails"]):
         return "Promotion"
     
     # Check user list
-    if (domain in USER_LIST["domains"] or 
-        email in USER_LIST["emails"]):
-        username = email.split('@')[0]
-        return f"From_{username}"
+    if (domain in categories["user"]["domains"] or 
+        email in categories["user"]["emails"]):
+        return f"From_{email.split('@')[0]}"
     
     # Not in any list - keep in inbox
     return None

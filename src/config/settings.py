@@ -1,4 +1,3 @@
-import os
 import json
 from pathlib import Path
 from typing import Dict, List
@@ -10,29 +9,31 @@ LOG_FILE = "logs/organizer.log"
 
 # Path configuration
 BASE_DIR = Path(__file__).parent.parent
-CONFIG_DIR = BASE_DIR / "config"
+CONFIG_FILE = BASE_DIR / "config" / "email_categories.json"
 
-# List configuration files
-LIST_FILES = {
-    "user": CONFIG_DIR / "userlist.json",
-    "blocked": CONFIG_DIR / "blockedlist.json",
-    "promotion": CONFIG_DIR / "promotionlist.json"
-}
-
-def load_list_config(file_path: Path) -> Dict[str, List[str]]:
-    """Load a list configuration file with error handling"""
+def load_categories() -> Dict[str, Dict[str, List[str]]]:
     try:
-        with open(file_path, 'r') as f:
+        with open(CONFIG_FILE, 'r') as f:
             config = json.load(f)
-            # Validate structure
-            if not all(key in config for key in ['domains', 'emails']):
-                raise ValueError(f"Invalid structure in {file_path.name}")
-            return config
-    except (FileNotFoundError, json.JSONDecodeError, ValueError) as e:
-        print(f"Error loading {file_path.name}: {e}")
-        return {"domains": [], "emails": []}
 
-# Load all lists
-USER_LIST = load_list_config(LIST_FILES["user"])
-BLOCKED_LIST = load_list_config(LIST_FILES["blocked"])
-PROMOTION_LIST = load_list_config(LIST_FILES["promotion"])
+            # Validate structure
+            required_sections = {'blocked', 'promotion', 'user'}
+            if not required_sections.issubset(config.keys()):
+                raise ValueError("Missing required sections")
+
+            # Validate each section has 'domains' and 'emails'
+            for section in required_sections:
+                if not all(k in config[section] for k in ['domains', 'emails']):
+                    raise ValueError(f"Invalid structure in section: {section}")
+
+            return config
+
+    except (FileNotFoundError, json.JSONDecodeError, ValueError) as e:
+        raise RuntimeError(f"Failed to load email categories: {str(e)}")
+
+EMAIL_CATEGORIES = load_categories()
+
+# Extracted categories
+USER_LIST = EMAIL_CATEGORIES['user']
+BLOCKED_LIST = EMAIL_CATEGORIES['blocked']
+PROMOTION_LIST = EMAIL_CATEGORIES['promotion']
